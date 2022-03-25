@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace tpmodul5_1302204014
 {
@@ -25,6 +26,11 @@ namespace tpmodul5_1302204014
 
         public SayaTubeVideo(string a)
         {
+            Contract.Requires(title != null);
+            Contract.Requires(title.Length < 100);
+
+
+
             Random b = new Random();
 
             this.id = b.Next(10000, 100000);
@@ -35,6 +41,16 @@ namespace tpmodul5_1302204014
 
         public void IncreasePlayCount(int a)
         {
+            
+            try
+            {
+            if (a >= 10000000) throw new Exception("panjang playcount melebihi batas");
+            playCount = playCount + a;
+            }
+            catch (Exception e)
+            {
+            Console.WriteLine(e.Message);
+            }
             playCount += a;
         }
 
